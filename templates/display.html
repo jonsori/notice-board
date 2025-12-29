@@ -1,0 +1,85 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Union - Live Notice Board</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/display.css' %}">
+</head>
+
+<body>
+    <div class="tv-display">
+        <!-- Header Overlay -->
+        <header class="tv-header">
+            <div class="header-left">
+                <div class="university-logo">
+                    <img src="{% static 'img/sunion-logo.png' %}" alt="Logo"
+                        style="width: 100%; height: 100%; object-fit: contain;">
+                </div>
+                <div class="header-title">
+                    <h1>BiT Student Union Official Notices</h1>
+                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                        <p
+                            style="font-weight: 700; color: #fbbf24; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em;">
+                            Made by Innovation Center</p>
+                    </div>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="live-indicator">
+                    <span class="pulse"></span>
+                    LIVE
+                </div>
+                <div class="datetime">
+                    <div class="time">00:00</div>
+                    <div class="date">Loading Date...</div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <div class="tv-content">
+            <div class="main-display">
+                <!-- Dynamic slides will be injected here -->
+
+                <!-- Slide Indicators (Dynamic items will be injected here) -->
+                <div class="slide-indicators"></div>
+            </div>
+        </div>
+
+        <!-- Bottom Ticker -->
+        <div class="ticker-container">
+            <div class="ticker-label">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+                </svg>
+                NEWS
+            </div>
+            <div class="ticker-content">
+                <div class="ticker-text" id="ticker-text">
+                    <!-- Dynamic ticker items will be injected here -->
+                    <span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                            style="color: #fbbf24; vertical-align: middle; margin-right: 8px;">
+                            <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path>
+                            <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path>
+                        </svg> Official Notice Board Live - Waiting for updates...</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_NOTICES_URL = "{% url 'api_notices' %}";
+    </script>
+    <script src="{% static 'js/display.js' %}"></script>
+</body>
+
+</html>
