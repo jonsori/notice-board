@@ -169,9 +169,9 @@ function setupTicker(notices) {
             tickerText.appendChild(separator);
         });
 
-        // Loop effect: duplicate the content to ensure continuous scrolling
-        const content = tickerText.innerHTML;
-        tickerText.innerHTML = content + content;
+        // Loop effect removed to single cycle
+        // const content = tickerText.innerHTML;
+        // tickerText.innerHTML = content + content;
     }
 }
 
