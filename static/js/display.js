@@ -15,7 +15,10 @@ async function fetchNotices() {
     try {
         const response = await fetch(API_NOTICES_URL);
         if (!response.ok) throw new Error('API fetch failed');
-        const notices = await response.json();
+        let notices = await response.json();
+        // Deduplicate notices by ID
+        notices = [...new Map(notices.map(item => [item.id, item])).values()];
+
         renderSlides(notices);
         setupTicker(notices);
     } catch (error) {

@@ -74,7 +74,7 @@ def get_active_notices(request):
         start_date__lte=today
     ).filter(
         Q(end_date__gte=today) | Q(end_date__isnull=True)
-    ).select_related('club')
+    ).select_related('club').distinct()
     
     data = []
     for notice in notices:

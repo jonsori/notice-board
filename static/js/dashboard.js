@@ -78,12 +78,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Notice Upload
     const uploadForm = document.getElementById('upload-form');
+    let isSubmitting = false;
+
     if (uploadForm) {
         uploadForm.addEventListener('submit', async (e) => {
             e.preventDefault();
+            if (isSubmitting) return;
+
             const submitBtn = uploadForm.querySelector('button[type="submit"]');
             const originalText = submitBtn.textContent;
 
+            isSubmitting = true;
             submitBtn.disabled = true;
             submitBtn.textContent = 'Uploading...';
 
@@ -103,12 +108,16 @@ document.addEventListener('DOMContentLoaded', () => {
                     setTimeout(() => location.reload(), 1500);
                 } else {
                     showNotification(result.message || 'Upload failed', 'error');
+                    isSubmitting = false; // Allow retry
                 }
             } catch (err) {
                 showNotification('Network error', 'error');
+                isSubmitting = false; // Allow retry
             } finally {
-                submitBtn.disabled = false;
-                submitBtn.textContent = originalText;
+                if (!isSubmitting) { // Only reset if we failed/allowed retry. Success reloads page.
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = originalText;
+                }
             }
         });
     }
