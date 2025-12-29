@@ -17,4 +17,5 @@ urlpatterns = [
     path('api/create-club/', views.create_club, name='api_create_club'),
     path('api/delete-club/<int:club_id>/', views.delete_club, name='api_delete_club'),
     path('api/toggle-club-status/<int:club_id>/', views.toggle_club_status, name='api_toggle_club_status'),
+    path('api/change-password/<int:club_id>/', views.change_password, name='api_change_password'),
 ]

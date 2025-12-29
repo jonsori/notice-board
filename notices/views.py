@@ -224,3 +224,32 @@ def toggle_club_status(request, club_id):
     
     status_text = "activated" if target_user.is_active else "deactivated"
     return JsonResponse({'status': 'success', 'message': f'Account {status_text} successfully'})
+
+@login_required
+def change_password(request, club_id):
+    # Only central admin can change passwords
+    club = request.user.club_profile
+    if not club.is_admin:
+        return JsonResponse({'status': 'error', 'message': 'Unauthorized'}, status=403)
+        
+    target_club = get_object_or_404(Club, id=club_id)
+    
+    if request.method == 'POST':
+        import json
+        try:
+            data = json.loads(request.body)
+            new_password = data.get('password')
+            
+            if not new_password or len(new_password) < 8:
+                return JsonResponse({'status': 'error', 'message': 'Password must be at least 8 characters'}, status=400)
+                
+            user = target_club.user
+            user.set_password(new_password)
+            user.save()
+            
+            return JsonResponse({'status': 'success', 'message': f'Password updated for {target_club.name}'})
+            
+        except Exception as e:
+            return JsonResponse({'status': 'error', 'message': str(e)}, status=400)
+            
+    return JsonResponse({'status': 'error', 'message': 'Invalid request'}, status=400)

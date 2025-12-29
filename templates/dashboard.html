@@ -299,6 +299,10 @@
                                 style="font-size: 0.75rem; padding: 0.625rem; border-radius: var(--radius-md);">
                                 {% if item.user.is_active %}Deactivate{% else %}Activate{% endif %}
                             </button>
+                            <button class="action-btn" onclick="changeUserPassword({{ item.id }}, '{{ item.name }}')"
+                                style="font-size: 0.75rem; padding: 0.625rem; border-radius: var(--radius-md); background: transparent; color: var(--gray-600); border: 1px solid var(--gray-300);">
+                                Password
+                            </button>
                             <button class="action-btn reject" onclick="deleteUser({{ item.id }}, '{{ item.name }}')"
                                 style="font-size: 0.75rem; padding: 0.625rem; border-radius: var(--radius-md); background: transparent; color: var(--error-red); border: 1px solid var(--error-red);">
                                 Delete

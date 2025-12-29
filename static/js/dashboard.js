@@ -152,6 +152,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     showNotification(result.message, 'success');
                     document.getElementById('user-modal').classList.remove('active');
                     userForm.reset();
+                    // Refresh stats to show new user immediately
+                    setTimeout(() => location.reload(), 1500);
                 } else {
                     showNotification(result.message || 'Creation failed', 'error');
                 }
@@ -282,6 +284,36 @@ async function toggleAccount(id, name, currentStatus) {
     }
 }
 
+async function changeUserPassword(id, name) {
+    const newPassword = prompt(`Enter new password for ${name} (min 8 chars):`);
+    if (!newPassword) return;
+
+    if (newPassword.length < 8) {
+        showNotification('Password must be at least 8 characters', 'error');
+        return;
+    }
+
+    try {
+        const response = await fetch(`/api/change-password/${id}/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': CSRF_TOKEN
+            },
+            body: JSON.stringify({ password: newPassword })
+        });
+        const result = await response.json();
+        if (result.status === 'success') {
+            showNotification(result.message, 'success');
+        } else {
+            showNotification(result.message || 'Update failed', 'error');
+        }
+    } catch (err) {
+        showNotification('Operation failed', 'error');
+    }
+}
+
 window.moderateNotice = moderateNotice;
 window.deleteUser = deleteUser;
 window.toggleAccount = toggleAccount;
+window.changeUserPassword = changeUserPassword;
