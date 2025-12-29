@@ -173,7 +173,12 @@ document.addEventListener('DOMContentLoaded', () => {
 // Globals & Helpers
 // ===================================
 
-async function moderateNotice(id, action) {
+async function moderateNotice(id, action, btnElement) {
+    if (btnElement) {
+        btnElement.disabled = true;
+        btnElement.style.opacity = '0.5';
+    }
+
     try {
         const response = await fetch(`/api/moderate/${id}/${action}/`, {
             method: 'POST',
@@ -192,8 +197,18 @@ async function moderateNotice(id, action) {
                     updateStats();
                 }, 400);
             }
+        } else {
+            if (btnElement) {
+                btnElement.disabled = false;
+                btnElement.style.opacity = '1';
+            }
+            showNotification(result.message || 'Operation failed', 'error');
         }
     } catch (err) {
+        if (btnElement) {
+            btnElement.disabled = false;
+            btnElement.style.opacity = '1';
+        }
         showNotification('Operation failed', 'error');
     }
 }

@@ -217,14 +217,14 @@
                     <div class="content-actions">
                         {% if notice.status == 'pending' %}
                         <button class="action-btn approve"
-                            onclick="moderateNotice({{ notice.id }}, 'approve')">Approve</button>
+                            onclick="moderateNotice({{ notice.id }}, 'approve', this)">Approve</button>
                         <button class="action-btn reject"
-                            onclick="moderateNotice({{ notice.id }}, 'reject')">Reject</button>
+                            onclick="moderateNotice({{ notice.id }}, 'reject', this)">Reject</button>
                         {% elif notice.status == 'approved' or notice.status == 'scheduled' %}
                         <button class="action-btn" style="background: var(--gray-100); color: var(--gray-700);"
-                            onclick="if(confirm('Pause this notice? It will return to pending review.')) moderateNotice({{ notice.id }}, 'pause')">Pause</button>
+                            onclick="if(confirm('Pause this notice? It will return to pending review.')) moderateNotice({{ notice.id }}, 'pause', this)">Pause</button>
                         <button class="action-btn reject"
-                            onclick="if(confirm('Delete this notice permanently?')) moderateNotice({{ notice.id }}, 'delete')">Delete</button>
+                            onclick="if(confirm('Delete this notice permanently?')) moderateNotice({{ notice.id }}, 'delete', this)">Delete</button>
                         {% endif %}
                     </div>
                     {% endif %}
