@@ -113,6 +113,19 @@ def upload_notice(request):
         except (ValueError, TypeError):
             duration = 10
 
+        # Prevent duplicate submissions (check last 1 minute)
+        from datetime import timedelta
+        cutoff = timezone.now() - timedelta(minutes=1)
+        existing = Notice.objects.filter(
+            club=club,
+            title=request.POST.get('title'),
+            type=request.POST.get('type'),
+            created_at__gte=cutoff
+        ).first()
+        
+        if existing:
+            return JsonResponse({'status': 'success', 'id': existing.id, 'message': 'Duplicate notice detected, returned existing.'})
+
         notice = Notice(
             title=request.POST.get('title'),
             type=request.POST.get('type'),
