@@ -73,7 +73,7 @@ function renderSlides(notices) {
             contentHTML = `
                 <div class="slide-content ${notice.type}-slide">
                     <div class="${notice.type}-placeholder" style="background: #000; height: 100%; position: relative; display: flex; align-items: center; justify-content: center;">
-                        ${notice.type === 'video' ? `<video src="${notice.fileData}" style="width: 100%; height: 100%; object-fit: contain;" autoplay muted loop></video>` : `<div style="color: white; font-size: 2rem; padding: 4rem; text-align: center;">${notice.textContent}</div>`}
+                        ${notice.type === 'video' ? `<video src="${notice.fileData}" style="width: 100%; height: 100%; object-fit: contain;" loop></video>` : `<div style="color: white; font-size: 2rem; padding: 4rem; text-align: center;">${notice.textContent}</div>`}
                         <div class="slide-overlay" style="position: absolute; bottom: 0; left: 0; right: 0; padding: 4rem 3rem 3rem 3rem; background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.85) 100%); display: flex; align-items: flex-end; justify-content: space-between;">
                             <div class="info">
                                 <h2 style="font-family: var(--font-display); font-size: 3.5rem; font-weight: 800; color: white; margin-bottom: 0.5rem; text-shadow: 0 4px 12px rgba(0,0,0,0.5);">${notice.title}</h2>
@@ -109,10 +109,24 @@ function renderSlides(notices) {
 function showSlide(index) {
     if (!slidesList.length) return;
 
-    slidesList.forEach(s => s.classList.remove('active'));
+    slidesList.forEach(s => {
+        s.classList.remove('active');
+        // Pause all videos
+        const video = s.querySelector('video');
+        if (video) {
+            video.pause();
+            video.currentTime = 0;
+        }
+    });
     indicatorsList.forEach(i => i.classList.remove('active'));
 
     slidesList[index].classList.add('active');
+    // Play video if current slide has one
+    const activeVideo = slidesList[index].querySelector('video');
+    if (activeVideo) {
+        activeVideo.play().catch(e => console.log('Autoplay blocked:', e));
+    }
+
     indicatorsList[index].classList.add('active');
 
     // Handle variable duration
