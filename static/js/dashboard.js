@@ -296,17 +296,20 @@ function updateStats() {
     const pending = document.querySelectorAll('.content-card[data-status="pending"]').length;
     const approved = document.querySelectorAll('.content-card[data-status="approved"]').length;
     const scheduled = document.querySelectorAll('.content-card[data-status="scheduled"]').length;
+    const expired = document.querySelectorAll('.content-card[data-status="expired"]').length;
 
     const nums = document.querySelectorAll('.stat-number');
     if (nums[0]) nums[0].textContent = pending;
     if (nums[1]) nums[1].textContent = approved;
     if (nums[2]) nums[2].textContent = scheduled;
+    if (nums[3]) nums[3].textContent = expired;
 
     document.querySelectorAll('.tab-btn').forEach(tab => {
         const t = tab.dataset.tab;
         if (t === 'pending') tab.textContent = `Pending (${pending})`;
         if (t === 'approved') tab.textContent = `Approved (${approved})`;
         if (t === 'scheduled') tab.textContent = `Scheduled (${scheduled})`;
+        if (t === 'expired') tab.textContent = `Expired (${expired})`;
     });
 }
 

@@ -46,9 +46,17 @@ def dashboard(request):
     else:
         notices = Notice.objects.filter(club=club).select_related('club')
     
-    pending_count = notices.filter(status='pending').count()
-    approved_count = notices.filter(status='approved').count()
-    scheduled_count = notices.filter(status='scheduled').count()
+    today = timezone.now().date()
+    
+    # In-memory status update for display purposes only
+    for notice in notices:
+        if notice.status == 'approved' and notice.end_date and notice.end_date < today:
+            notice.status = 'expired'
+            
+    pending_count = sum(1 for n in notices if n.status == 'pending')
+    approved_count = sum(1 for n in notices if n.status == 'approved')
+    scheduled_count = sum(1 for n in notices if n.status == 'scheduled')
+    expired_count = sum(1 for n in notices if n.status == 'expired')
     
     all_clubs = None
     if club.is_admin:
@@ -60,6 +68,7 @@ def dashboard(request):
         'pending_count': pending_count,
         'approved_count': approved_count,
         'scheduled_count': scheduled_count,
+        'expired_count': expired_count,
         'is_admin': club.is_admin,
         'all_clubs': all_clubs,
     })

@@ -363,6 +363,10 @@ body {
     background: linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%);
 }
 
+.stat-icon.expired {
+    background: linear-gradient(135deg, #9ca3af 0%, #d1d5db 100%);
+}
+
 .stat-icon.live {
     background: linear-gradient(135deg, #ef4444 0%, #f87171 100%);
 }
@@ -547,6 +551,11 @@ body {
 .status-badge.scheduled {
     background: var(--status-scheduled-bg);
     color: var(--status-scheduled);
+}
+
+.status-badge.expired {
+    background: var(--gray-200);
+    color: var(--gray-600);
 }
 
 .content-actions {

@@ -177,6 +177,20 @@
                         <p class="stat-number">{{ scheduled_count }}</p>
                     </div>
                 </div>
+                <div class="stat-card">
+                    <div class="stat-icon expired">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="15" y1="9" x2="9" y2="15"></line>
+                            <line x1="9" y1="9" x2="15" y2="15"></line>
+                        </svg>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Expired</h3>
+                        <p class="stat-number">{{ expired_count }}</p>
+                    </div>
+                </div>
             </div>
 
             <!-- Content Tabs -->
@@ -185,6 +199,7 @@
                 <button class="tab-btn" data-tab="pending">Pending</button>
                 <button class="tab-btn" data-tab="approved">Approved</button>
                 <button class="tab-btn" data-tab="scheduled">Scheduled</button>
+                <button class="tab-btn" data-tab="expired">Expired</button>
                 {% if is_admin %}
                 <button class="tab-btn" data-tab="users">Registered Users</button>
                 {% endif %}
@@ -219,7 +234,11 @@
                                     style="color:var(--primary-blue);font-weight:600;font-size:0.75rem;">@{{notice.club.user.username}}</span>
                             </div>
                         </div>
-                        <div class="status-badge {{ notice.status }}">{{ notice.get_status_display }}</div>
+                        <div class="status-badge {{ notice.status }}">
+                            {% if notice.status == 'expired' %}Expired
+                            {% else %}{{ notice.get_status_display }}
+                            {% endif %}
+                        </div>
                     </div>
                     {% if is_admin %}
                     <div class="content-actions">
