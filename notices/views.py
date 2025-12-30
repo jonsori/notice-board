@@ -241,11 +241,12 @@ def toggle_club_status(request, club_id):
 @login_required
 def change_password(request, club_id):
     # Only central admin can change passwords
-    club = request.user.club_profile
-    if not club.is_admin:
-        return JsonResponse({'status': 'error', 'message': 'Unauthorized'}, status=403)
-        
+    # Allow if admin OR if updating own password
+    requesting_club = request.user.club_profile
     target_club = get_object_or_404(Club, id=club_id)
+    
+    if not requesting_club.is_admin and requesting_club.id != target_club.id:
+        return JsonResponse({'status': 'error', 'message': 'Unauthorized'}, status=403)
     
     if request.method == 'POST':
         import json

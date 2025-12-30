@@ -113,6 +113,14 @@
                             </svg>
                             Live View
                         </a>
+                        <button class="btn-secondary" id="change-pwd-btn">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                            </svg>
+                            Password
+                        </button>
                         <a href="{% url 'logout' %}" class="btn-logout">
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2">
@@ -390,6 +398,7 @@
 
     <script>
         const CSRF_TOKEN = '{{ csrf_token }}';
+        const CLUB_ID = {{ club.id }};
     </script>
     <script src="{% static 'js/dashboard.js' %}"></script>
 </body>

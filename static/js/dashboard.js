@@ -62,6 +62,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     setupModal('new-content-btn', 'upload-modal', 'close-modal');
     setupModal('manage-users-btn', 'user-modal', 'close-user-modal');
+    setupModal('change-pwd-btn', 'pwd-modal', 'close-pwd-modal');
+
 
     // Content Type Toggle
     const contentTypeSelect = document.getElementById('content-type');
@@ -162,6 +164,83 @@ document.addEventListener('DOMContentLoaded', () => {
             } finally {
                 submitBtn.disabled = false;
                 submitBtn.textContent = 'Create Account';
+            }
+        });
+    }
+
+    // Self Password Change
+    const pwdForm = document.getElementById('pwd-form');
+    if (pwdForm) {
+        pwdForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const submitBtn = pwdForm.querySelector('button[type="submit"]');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Updating...';
+
+            const newPassword = document.getElementById('self-new-password').value;
+            // Get current club ID from template context if possible or use a separate endpoint.
+            // But we can reuse the View logic if we know the ID.
+            // Alternatively, since we can't easily pass the ID into JS without rendering it,
+            // we can grab it from a data attribute or global variable.
+            // Let's assume we can get it from a global or the DOM.
+            // A better approach for self-service is usually a dedicated endpoint like /api/change-my-password/
+            // BUT, our modified view accepts club_id. 
+            // We need the current user's club ID.
+
+            // Hack/Solution: We will rely on getting the ID from the "Made by Innovation center" text? No.
+            // Let's pass the ID in the templates. 
+            // WAIT - I need to edit the template again to add the ID to a global var.
+            // OR I can just make the view accept a special keyword 'me' or just get ID from request.user in the view.
+            // Let's stick to the plan: I will just use the ID if I have it. I don't have it easily in JS.
+            // Wait, I can see `{{ club.id }}` in the template context.
+            // I should have added `const CLUB_ID = {{ club.id }};` in the dashboard.html script block.
+
+            // For now, I'll assume I'll add that variable in the next step or I can use a dirty trick if I don't want to edit HTML again.
+            // Actually, I can just fetch the ID from a data attribute on the body or header.
+            // I'll update the JS assuming CLUB_ID exists, and I will add it to the template in a moment.
+
+            // actually, I'll use a better approach: Update the View to handle a "me" ID if I could, but I already modified the view to take an int.
+            // So I MUST pass the ID.
+
+            // I'll add `data-club-id="{{ club.id }}"` to the change password button in the previous step? 
+            // I didn't. I just added the button.
+            // I will add the ID extraction here.
+
+            // Let's try to find the ID from the DOM. 
+            // The "Manage Users" button is only for admins.
+            // The "New Content" button doesn't have ID.
+
+            // I will assume I will fix the HTML to include the ID. 
+            // For this step I will write the code to use distinct `CLUB_ID`.
+            if (typeof CLUB_ID === 'undefined') {
+                showNotification('System Error: Missing Club ID', 'error');
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Update Password';
+                return;
+            }
+
+            try {
+                const response = await fetch(`/api/change-password/${CLUB_ID}/`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': CSRF_TOKEN
+                    },
+                    body: JSON.stringify({ password: newPassword })
+                });
+                const result = await response.json();
+                if (result.status === 'success') {
+                    showNotification('Password updated successfully', 'success');
+                    document.getElementById('pwd-modal').classList.remove('active');
+                    pwdForm.reset();
+                } else {
+                    showNotification(result.message || 'Update failed', 'error');
+                }
+            } catch (err) {
+                showNotification('Server error', 'error');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Update Password';
             }
         });
     }
