@@ -210,15 +210,19 @@
                 {% for notice in notices %}
                 <div class="content-card" data-status="{{ notice.status }}" data-id="{{ notice.id }}">
                     <div class="content-preview {{ notice.type }}">
-                        {% if notice.type == 'image' %}
+                        {% if notice.type == 'image' and notice.file %}
                         <img src="{{ notice.file.url }}"
                             style="width: 100%; height: 100%; object-fit: contain; background: #000;">
-                        {% elif notice.type == 'video' %}
+                        {% elif notice.type == 'video' and notice.file %}
                         <video src="{{ notice.file.url }}"
                             style="width: 100%; height: 100%; object-fit: contain; background: #000;"></video>
                         {% else %}
                         <div class="text-preview">
+                            {% if notice.type == 'text' %}
                             <p>{{ notice.text_content|truncatechars:150 }}</p>
+                            {% else %}
+                            <p style="opacity: 0.7; font-style: italic;">Media content missing</p>
+                            {% endif %}
                         </div>
                         {% endif %}
                         <div class="content-type-badge">{{ notice.get_type_display }}</div>
