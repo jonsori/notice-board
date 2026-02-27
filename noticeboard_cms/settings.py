@@ -81,10 +81,17 @@ import dj_database_url
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# Use /data directory on Render for persistent SQLite, otherwise use BASE_DIR
+RENDER_DATA_DIR = Path('/data')
+if RENDER_DATA_DIR.exists():
+    DB_PATH = RENDER_DATA_DIR / 'db.sqlite3'
+else:
+    DB_PATH = BASE_DIR / 'db.sqlite3'
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': DB_PATH,
     }
 }
 
@@ -131,7 +138,10 @@ STATICFILES_DIRS = [BASE_DIR / 'static']
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+if RENDER_DATA_DIR.exists():
+    MEDIA_ROOT = RENDER_DATA_DIR / 'media'
+else:
+    MEDIA_ROOT = BASE_DIR / 'media'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
