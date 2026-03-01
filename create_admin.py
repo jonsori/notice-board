@@ -8,24 +8,36 @@ from django.contrib.auth.models import User
 from notices.models import Club
 
 def create_user_with_club(username, email, password, club_name, is_admin=False):
-    if not User.objects.filter(username=username).exists():
-        print(f"Creating {'superuser' if is_admin else 'user'} {username}...")
-        if is_admin:
-            user = User.objects.create_superuser(username, email, password)
-        else:
-            user = User.objects.create_user(username, email, password)
-        
-        Club.objects.get_or_create(user=user, name=club_name, is_admin=is_admin)
-        print(f"{'Superuser' if is_admin else 'User'} {username} created successfully.")
-    else:
-        print(f"User {username} already exists. Updating password...")
-        user = User.objects.get(username=username)
+    print(f"Checking user: {username}")
+    user, created = User.objects.get_or_create(username=username, defaults={'email': email})
+    
+    if created:
+        print(f"Created new {'superuser' if is_admin else 'user'}: {username}")
         user.set_password(password)
-        user.save()
-        
-        # Ensure club profile exists
-        Club.objects.get_or_create(user=user, defaults={'name': club_name, 'is_admin': is_admin})
-        print(f"Password and profile updated successfully for {username}.")
+        if is_admin:
+            user.is_superuser = True
+            user.is_staff = True
+    else:
+        print(f"User {username} already exists. Updating password and permissions...")
+        user.set_password(password)
+        if is_admin:
+            user.is_superuser = True
+            user.is_staff = True
+    
+    user.email = email
+    user.save()
+    
+    # Ensure club profile exists and is updated
+    club, club_created = Club.objects.update_or_create(
+        user=user,
+        defaults={
+            'name': club_name,
+            'is_admin': is_admin
+        }
+    )
+    
+    print(f"Club profile for {username} {'created' if club_created else 'updated'}. (Name: {club_name}, IsAdmin: {is_admin})")
+    print(f"Authentication verification: {username} is ready.")
 
 # Create Admin
 create_user_with_club(

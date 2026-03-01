@@ -8,6 +8,7 @@ mkdir -p /data/media/notices
 
 # Run migrations at runtime to ensure they apply to the persistent disk
 python manage.py migrate
+python create_admin.py
 
 # Start the application
 gunicorn noticeboard_cms.wsgi:application

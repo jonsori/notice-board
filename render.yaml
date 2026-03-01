@@ -3,7 +3,7 @@ services:
     name: bi-t-notice-board
     runtime: python
     buildCommand: "./build.sh"
-    startCommand: "gunicorn noticeboard_cms.wsgi:application"
+    startCommand: "./start.sh"
     envVars:
       - key: PYTHON_VERSION
         value: 3.10.12
