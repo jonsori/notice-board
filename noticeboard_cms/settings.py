@@ -28,6 +28,12 @@ DEBUG = os.getenv('DEBUG', 'True').lower() == 'true'
 
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '*').split(',')
 
+# CSRF settings for production
+CSRF_TRUSTED_ORIGINS = [
+    'https://*.onrender.com',
+    'https://' + host for host in ALLOWED_HOSTS if host != '*'
+]
+
 
 # Application definition
 
