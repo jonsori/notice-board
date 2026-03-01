@@ -139,4 +139,4 @@ helpLink.addEventListener('click', (e) => {
 // ===================================
 // Initialize
 // ===================================
-console.log('🔐 Student Union Login System Initialized');
+console.log('� Student Union Login System Initialized');
