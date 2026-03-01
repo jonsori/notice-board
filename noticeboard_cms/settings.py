@@ -88,6 +88,7 @@ DATABASES = {
     }
 }
 
+# Use Postgres on Render if DATABASE_URL is present
 if 'DATABASE_URL' in os.environ:
     DATABASES['default'] = dj_database_url.config(
         conn_max_age=600,
