@@ -38,11 +38,14 @@ A modern, cloud-based digital signage platform designed for university student g
 The system has **three separate URLs** for different purposes:
 
 #### 1. **Login Page** (`login.html`)
-- **URL**: `login.html`
-- **Purpose**: Secure admin authentication
-- **Demo Credentials**:
+- **URL**: `/`
+- **Purpose**: Secure admin and club authentication
+- **Admin Credentials**:
   - Username: `admin`
-  - Password: `admin123`
+  - Password: `adminpassword123`
+- **Club User Credentials**:
+  - Username: `user1`
+  - Password: `userpassword123`
 - **Features**: Password toggle, remember me, session management
 
 #### 2. **Admin Dashboard** (`dashboard.html`)
