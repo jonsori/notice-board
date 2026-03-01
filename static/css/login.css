@@ -2,56 +2,43 @@
    Login Page Design System
    =================================== */
 :root {
-    /* University Brand Colors */
-    --primary-blue: #1e40af;
-    --primary-blue-light: #3b82f6;
-    --primary-blue-dark: #1e3a8a;
-    --accent-blue: #60a5fa;
+    /* Sophisticated Brand Palette */
+    --primary: #6366f1;
+    /* Indigo */
+    --primary-glow: rgba(99, 102, 241, 0.5);
+    --secondary: #a855f7;
+    /* Purple */
+    --accent: #06b6d4;
+    /* Cyan */
 
-    /* Neutral Colors */
+    /* Neutral High-End Surface Palette */
+    --bg-main: #020617;
+    /* Deepest Navy */
+    --surface: rgba(15, 23, 42, 0.7);
+    --surface-light: rgba(30, 41, 59, 0.5);
+    --border-glass: rgba(255, 255, 255, 0.1);
+    --border-glass-bright: rgba(255, 255, 255, 0.2);
+
     --white: #ffffff;
-    --gray-50: #f9fafb;
-    --gray-100: #f3f4f6;
-    --gray-200: #e5e7eb;
-    --gray-300: #d1d5db;
-    --gray-400: #9ca3af;
-    --gray-500: #6b7280;
-    --gray-600: #4b5563;
-    --gray-700: #374151;
-    --gray-800: #1f2937;
-    --gray-900: #111827;
-
-    /* Status Colors */
-    --error-red: #ef4444;
-    --error-bg: #fee2e2;
-    --success-green: #10b981;
+    --gray-100: #f1f5f9;
+    --gray-300: #cbd5e1;
+    --gray-400: #94a3b8;
+    --gray-500: #64748b;
 
     /* Gradients */
-    --gradient-primary: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
-    --gradient-secondary: linear-gradient(135deg, #60a5fa 0%, #93c5fd 100%);
+    --grad-premium: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+    --grad-surface: linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0) 100%);
 
-    /* Shadows */
-    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-    --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    /* Shadows & Glows */
+    --shadow-premium: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    --glow-primary: 0 0 20px rgba(99, 102, 241, 0.3);
 
     /* Typography */
-    --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    --font-display: 'Outfit', 'Inter', sans-serif;
-
-    /* Border Radius */
-    --radius-sm: 0.375rem;
-    --radius-md: 0.5rem;
-    --radius-lg: 0.75rem;
-    --radius-xl: 1rem;
-    --radius-2xl: 1.5rem;
+    --font-primary: 'Inter', system-ui, -apple-system, sans-serif;
+    --font-display: 'Outfit', sans-serif;
 
     /* Transitions */
-    --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+    --bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 /* ===================================
@@ -65,12 +52,16 @@
 
 body {
     font-family: var(--font-primary);
-    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    background-color: var(--bg-main);
+    background-image:
+        radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.15) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(168, 85, 247, 0.15) 0px, transparent 50%);
     min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
+    color: var(--white);
 }
 
 /* ===================================
@@ -95,30 +86,33 @@ body {
 }
 
 .shape-1 {
-    width: 500px;
-    height: 500px;
-    background: var(--primary-blue);
-    top: -100px;
-    left: -100px;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, var(--primary), transparent);
+    top: -200px;
+    left: -200px;
+    opacity: 0.15;
     animation-delay: 0s;
 }
 
 .shape-2 {
-    width: 400px;
-    height: 400px;
-    background: var(--accent-blue);
-    bottom: -100px;
-    right: -100px;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, var(--secondary), transparent);
+    bottom: -150px;
+    right: -150px;
+    opacity: 0.15;
     animation-delay: 7s;
 }
 
 .shape-3 {
-    width: 350px;
-    height: 350px;
-    background: var(--primary-blue-light);
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, var(--accent), transparent);
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    opacity: 0.1;
     animation-delay: 14s;
 }
 
@@ -156,23 +150,37 @@ body {
    Login Card
    =================================== */
 .login-card {
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(20px);
-    border-radius: var(--radius-2xl);
-    padding: 3rem;
-    box-shadow: var(--shadow-2xl);
-    animation: slideInLeft 0.6s ease;
+    background: var(--surface);
+    backdrop-filter: blur(40px);
+    -webkit-backdrop-filter: blur(40px);
+    border: 1px solid var(--border-glass);
+    border-radius: 2rem;
+    padding: 3.5rem;
+    box-shadow: var(--shadow-premium);
+    animation: fadeInScale 0.8s var(--bounce);
+    position: relative;
+    overflow: hidden;
 }
 
-@keyframes slideInLeft {
+.login-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border-glass-bright), transparent);
+}
+
+@keyframes fadeInScale {
     from {
         opacity: 0;
-        transform: translateX(-50px);
+        transform: scale(0.95) translateY(20px);
     }
 
     to {
         opacity: 1;
-        transform: translateX(0);
+        transform: scale(1) translateY(0);
     }
 }
 
@@ -182,29 +190,31 @@ body {
 }
 
 .logo {
-    width: 80px;
-    height: 80px;
+    width: 64px;
+    height: 64px;
     margin: 0 auto 1.5rem;
-    background: var(--gradient-primary);
-    border-radius: var(--radius-xl);
+    background: var(--grad-premium);
+    border-radius: 1.25rem;
     display: flex;
     align-items: center;
     justify-content: center;
     color: var(--white);
-    box-shadow: var(--shadow-lg);
+    box-shadow: var(--glow-primary);
+    border: 1px solid var(--border-glass-bright);
 }
 
 .login-header h1 {
     font-family: var(--font-display);
-    font-size: 2rem;
+    font-size: 2.25rem;
     font-weight: 800;
-    color: var(--gray-900);
+    color: var(--white);
+    letter-spacing: -0.02em;
     margin-bottom: 0.5rem;
 }
 
 .subtitle {
-    font-size: 1rem;
-    color: var(--gray-600);
+    font-size: 0.9375rem;
+    color: var(--gray-400);
     font-weight: 500;
 }
 
@@ -227,35 +237,39 @@ body {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    font-size: 0.875rem;
+    font-size: 0.8125rem;
     font-weight: 600;
-    color: var(--gray-700);
+    color: var(--gray-300);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
 }
 
 .form-group label svg {
-    color: var(--primary-blue);
+    color: var(--primary);
 }
 
 .form-group input {
     width: 100%;
-    padding: 0.875rem 1rem;
-    border: 2px solid var(--gray-200);
-    border-radius: var(--radius-lg);
+    padding: 1rem 1.25rem;
+    background: var(--surface-light);
+    border: 1px solid var(--border-glass);
+    border-radius: 1rem;
     font-family: var(--font-primary);
     font-size: 0.9375rem;
-    color: var(--gray-900);
-    background: var(--white);
-    transition: all var(--transition-base);
+    color: var(--white);
+    transition: all 0.3s var(--bounce);
 }
 
 .form-group input:focus {
     outline: none;
-    border-color: var(--primary-blue);
-    box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1);
+    border-color: var(--primary);
+    background: rgba(0, 0, 0, 0.3);
+    box-shadow: var(--glow-primary);
+    transform: translateY(-1px);
 }
 
 .form-group input::placeholder {
-    color: var(--gray-400);
+    color: var(--gray-500);
 }
 
 .password-input-wrapper {
@@ -339,11 +353,11 @@ body {
    =================================== */
 .btn-login {
     width: 100%;
-    padding: 1rem 1.5rem;
-    background: var(--gradient-primary);
+    padding: 1.125rem;
+    background: var(--grad-premium);
     color: var(--white);
     border: none;
-    border-radius: var(--radius-lg);
+    border-radius: 1rem;
     font-family: var(--font-primary);
     font-size: 1rem;
     font-weight: 700;
@@ -352,18 +366,18 @@ body {
     align-items: center;
     justify-content: center;
     gap: 0.75rem;
-    box-shadow: var(--shadow-lg);
-    transition: all var(--transition-base);
-    margin-top: 0.5rem;
+    box-shadow: var(--glow-primary);
+    transition: all 0.3s var(--bounce);
+    margin-top: 1rem;
 }
 
 .btn-login:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-xl);
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(99, 102, 241, 0.4);
 }
 
 .btn-login:active {
-    transform: translateY(0);
+    transform: translateY(-1px);
 }
 
 .btn-login.loading {
@@ -425,16 +439,18 @@ body {
    Login Footer
    =================================== */
 .login-footer {
-    margin-top: 2rem;
+    margin-top: 2.5rem;
     padding-top: 2rem;
-    border-top: 1px solid var(--gray-200);
+    border-top: 1px solid var(--border-glass);
     text-align: center;
 }
 
 .login-footer p {
-    font-size: 0.875rem;
-    color: var(--gray-600);
-    margin-bottom: 1rem;
+    font-size: 0.8125rem;
+    color: var(--gray-500);
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
 }
 
 .footer-links {
@@ -448,37 +464,60 @@ body {
     align-items: center;
     gap: 0.5rem;
     font-size: 0.875rem;
-    color: var(--primary-blue);
+    color: var(--primary);
     text-decoration: none;
     font-weight: 600;
-    transition: all var(--transition-base);
+    transition: all 0.3s var(--bounce);
+    padding: 0.6rem 1.2rem;
+    border-radius: 0.75rem;
+    background: var(--surface-light);
+    border: 1px solid var(--border-glass);
 }
 
 .footer-links a:hover {
-    color: var(--primary-blue-dark);
-    transform: translateY(-2px);
+    color: var(--white);
+    background: var(--surface);
+    border-color: var(--border-glass-bright);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
 /* ===================================
    Info Panel
    =================================== */
 .info-panel {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(25px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: var(--radius-2xl);
-    padding: 3.5rem;
+    background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.08), transparent);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    border: 1px solid var(--border-glass);
+    border-radius: 2.5rem;
+    padding: 4rem;
     color: var(--white);
     display: flex;
     align-items: center;
-    animation: slideInRight 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    animation: fadeInRight 1s var(--bounce);
+    box-shadow: var(--shadow-premium);
+    position: relative;
+    overflow: hidden;
 }
 
-@keyframes slideInRight {
+.info-panel::after {
+    content: '';
+    position: absolute;
+    bottom: -20%;
+    right: -10%;
+    width: 300px;
+    height: 300px;
+    background: var(--secondary);
+    filter: blur(100px);
+    opacity: 0.15;
+    z-index: -1;
+}
+
+@keyframes fadeInRight {
     from {
         opacity: 0;
-        transform: translateX(60px);
+        transform: translateX(40px);
     }
 
     to {
@@ -489,16 +528,16 @@ body {
 
 .status-tag {
     display: inline-block;
-    background: rgba(59, 130, 246, 0.2);
-    color: var(--accent-blue);
-    padding: 0.5rem 1rem;
-    border-radius: 20px;
+    background: rgba(6, 182, 212, 0.1);
+    color: var(--accent);
+    padding: 0.5rem 1.25rem;
+    border-radius: 99px;
     font-size: 0.75rem;
     font-weight: 800;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin-bottom: 1.5rem;
-    border: 1px solid rgba(59, 130, 246, 0.3);
+    letter-spacing: 0.15em;
+    margin-bottom: 2rem;
+    border: 1px solid rgba(6, 182, 212, 0.2);
 }
 
 .info-content h2 {
@@ -534,16 +573,24 @@ body {
 }
 
 .feature-icon {
-    width: 44px;
-    height: 44px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 12px;
+    width: 48px;
+    height: 48px;
+    background: rgba(6, 182, 212, 0.1);
+    border-radius: 16px;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--accent-blue);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--accent);
+    border: 1px solid rgba(6, 182, 212, 0.2);
     flex-shrink: 0;
+    transition: all 0.3s var(--bounce);
+}
+
+.feature-item:hover .feature-icon {
+    background: var(--accent);
+    color: var(--white);
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: 0 0 20px rgba(6, 182, 212, 0.4);
 }
 
 .feature-text h3 {
